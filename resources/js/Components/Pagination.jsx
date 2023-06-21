@@ -1,35 +1,43 @@
 import React from 'react';
-import { Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
-const Pagination = ({ links, currentFilters }) => {
+const Pagination = ({ links}) => {
 
     /* console.log(Object.keys(currentFilters)) */
 
+
+    const { currentFilters } = usePage().props
+
     const setUrl = (url, currentFilters) => {
-        let initUrl = '?'
-        const filters = Object.keys(currentFilters)
-        filters.forEach((filter) => {
-            initUrl += `${filter}=${currentFilters[filter] ? currentFilters[filter] : ''}&`
-        })
-        const ini = url.indexOf('?')
-        const end = url.length
-        const page = url.slice(ini - end).replace('?', '&')
-        return initUrl.substring(0, initUrl.length - 1) + page
+        if(currentFilters){
+            let initUrl = '?'
+            const filters = Object.keys(currentFilters)
+            filters.forEach((filter) => {
+                initUrl += `${filter}=${currentFilters[filter] ? currentFilters[filter] : ''}&`
+            })
+            const ini = url.indexOf('?')
+            const end = url.length
+            const page = url.slice(ini - end).replace('?', '&')
+            console.log(initUrl.substring(0, initUrl.length - 1) + page)
+            return initUrl.substring(0, initUrl.length - 1) + page
+        }
+        return url
     }
 
     function getClassName(active) {
         if(active) {
-            return "first:ml-0 text-xs font-semibold flex w-8 h-8 mx-1 p-0 rounded-full items-center justify-center leading-tight relative border border-solid border-blue-900 text-white bg-blue-900";
+            return "first:ml-0 text-xs font-semibold flex w-8 h-8 mx-1 p-0 rounded-full items-center justify-center leading-tight relative border border-solid border-orange-500 text-white bg-orange-600";
         } else{
-            return "first:ml-0 text-xs font-semibold flex w-8 h-8 mx-1 p-0 rounded-full items-center justify-center leading-tight relative border border-solid border-blue-900 bg-white text-black hover:bg-blue-800 hover:text-white";
+            return "first:ml-0 text-xs font-semibold flex w-8 h-8 mx-1 p-0 rounded-full items-center justify-center leading-tight relative border border-solid border-orange-500 bg-white text-black hover:bg-orange-600 hover:text-white";
         }
     }
 
     const setLabel = (label) => {
         if(label == 'Next &raquo;'){
-            return <span> <i className='fas text-size-xs-em fa-chevron-right'></i></span>
+            return <span> <FaChevronRight className='fas text-size-xs-em fa-chevron-right'/></span>
         }else if (label == '&laquo; Previous'){
-            return <span><i className='fas text-size-xs-em fa-chevron-left'></i> </span>
+            return <span><FaChevronLeft className='fas text-size-xs-em fa-chevron-left'/> </span>
         }else{
             return label
         }

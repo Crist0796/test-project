@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('doc_documento', function (Blueprint $table) {
             $table->id('doc_id');
-            $table->string('doc_codigo');
+            $table->string('doc_codigo')->nullable();
             $table->string('doc_nombre', 60);
             $table->string('doc_contenido', 4000);
             $table->timestamps();

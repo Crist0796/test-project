@@ -1,6 +1,7 @@
 import React from "react"
 import { Link } from "@inertiajs/react"
 import logo from '/resources/img/logo.png'
+import { FaFileAlt, FaFileMedical } from "react-icons/fa"
 const Sidenav = ({active, onChangeAct}) => {
     const onHandleClick = () => {
         onChangeAct()
@@ -22,11 +23,15 @@ const Sidenav = ({active, onChangeAct}) => {
       <div className="items-center mt-10 block w-auto max-h-screen overflow-auto h-sidenav grow basis-full">
         <ul className="flex flex-col pl-0 mb-0">
           <li className="mt-0.5 w-full mb-3">
-            <Link className="py-2.7 mt-3 bg-blue-500/13 dark:text-white dark:opacity-80 text-size-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href={route('dashboard')}>
-              <div className="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-                <i className="relative top-0 leading-normal text-blue-600 fa-solid fa-gas-pump text-size-xl"></i>
-              </div>
-              <span className="ml-1 duration-300 opacity-100 pointer-events-none ease">Despachos</span>
+            <Link className="py-2.7 mt-3 bg-orange-600/10 dark:text-white dark:opacity-80 text-size-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href={route('documents')}>
+                <FaFileAlt/>
+              <span className="ml-3 duration-300 opacity-100 pointer-events-none ease">DOCUMENTOS</span>
+            </Link>
+          </li>
+          <li className="mt-0.5 w-full mb-3">
+            <Link className="py-2.7 mt-3 bg-orange-600/10 dark:text-white dark:opacity-80 text-size-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href={route('documents.create')}>
+                <FaFileMedical/>
+              <span className="ml-3 duration-300 opacity-100 pointer-events-none ease">NUEVO DOCUMENTO</span>
             </Link>
           </li>
         </ul>
@@ -34,5 +39,4 @@ const Sidenav = ({active, onChangeAct}) => {
     </aside>
     )
 }
-
 export default Sidenav

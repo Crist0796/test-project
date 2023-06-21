@@ -1,13 +1,8 @@
-import { useEffect } from 'react';
-import GuestLayout from '@/Layouts/GuestLayout';
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
-import { Head, Link, useForm } from '@inertiajs/react';
+import React, { useEffect } from 'react';
+import { Head, useForm } from '@inertiajs/react';
 
 export default function Register() {
-    const { data, setData, post, processing, errors, reset } = useForm({
+    const { data, setData, post, errors, reset } = useForm({
         name: '',
         username: '',
         password: '',
@@ -16,98 +11,82 @@ export default function Register() {
 
     useEffect(() => {
         return () => {
-            reset('password', 'password_confirmation');
+            reset('password');
         };
+
     }, []);
+
+    const onHandleChange = (event) => {
+        setData(event.target.name, event.target.type === 'checkbox' ? event.target.checked : event.target.value);
+    };
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('register'));
+        post(route('register', data));
     };
 
     return (
-        <GuestLayout>
-            <Head title="Register" />
+        <>
 
-            <form onSubmit={submit}>
-                <div>
-                    <InputLabel htmlFor="name" value="Name" />
+        <Head title='Login'/>
 
-                    <TextInput
-                        id="name"
-                        name="name"
-                        value={data.name}
-                        className="mt-1 block w-full"
-                        autoComplete="name"
-                        isFocused={true}
-                        onChange={(e) => setData('name', e.target.value)}
-                        required
-                    />
+    <main className="mt-0 transition-all duration-200 ease-in-out">
+      <section>
+        <div className="relative flex items-center min-h-screen p-0 overflow-hidden bg-center bg-cover">
+          <div className="container z-1">
+            <div className="flex flex-wrap -mx-3">
+              <div className="flex flex-col w-full max-w-full px-3 mx-auto lg:mx-0 shrink-0 md:flex-0 md:w-7/12 lg:w-5/12 xl:w-4/12">
+                <div className="relative flex flex-col min-w-0 break-words bg-transparent border-0 shadow-none lg:py4 dark:bg-gray-950 rounded-2xl bg-clip-border">
+                  <div className="p-6 pb-0 mb-0">
+                    <h4 className="font-bold text-black">Registrar Usuario</h4>
+                    <p className="mb-0">Ingrese su información para crear usuario</p>
+                  </div>
+                  <div className="flex-auto p-6">
+                    <form role="form" onSubmit={submit}>
+                    <div className="mb-4">
+                        <input type="text" placeholder="Nombre" name="name" value={data.name} onChange={onHandleChange} className="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-size-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-orange-500 focus:outline-none" />
+                        <p className='text-red-500'>{errors.username}</p>
+                      </div>
+                      <div className="mb-4">
+                        <input type="text" placeholder="Nombre de usuario" name="username" value={data.username} onChange={onHandleChange} className="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-size-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-orange-500 focus:outline-none" />
+                        <p className='text-red-500'>{errors.username}</p>
+                      </div>
+                      <div className="mb-4">
+                        <input type="password" placeholder="Contraseña" name="password" value={data.password} onChange={onHandleChange} className="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-size-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-orange-500 focus:outline-none" />
+                        <p className='text-red-500'>{errors.password}</p>
+                      </div>
+                      <div className="mb-4">
+                        <input type="password" placeholder="Repita la contraseña" name="password_confirmation" value={data.password_confirmation} onChange={onHandleChange} className="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-size-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-orange-500 focus:outline-none" />
+                        <p className='text-red-500'>{errors.password_confirmation}</p>
+                      </div>
 
-                    <InputError message={errors.name} className="mt-2" />
+                      <div className="text-center">
+
+                        <button type="submit"className="group relative h-12 w-48 overflow-hidden rounded-lg bg-white text-lg shadow mt-3">
+                        <div className="absolute inset-0 w-3 bg-orange-500 transition-all duration-[250ms] ease-out group-hover:w-full"></div>
+                        <span className="relative text-black group-hover:text-white">Iniciar sesión</span>
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                  {/* <div className="border-black/12.5 rounded-b-2xl border-t-0 border-solid p-6 text-center pt-0 px-1 sm:px-6">
+                    <p className="mx-auto mb-6 leading-normal text-size-sm">¿No tienes una cuenta? <Link href={route('register')} className="font-semibold text-transparent bg-clip-text bg-gradient-to-tl from-blue-500 to-violet-500">Registrarse</Link></p>
+                  </div> */}
                 </div>
-
-                <div className="mt-4">
-                    <InputLabel htmlFor="username" value="username" />
-
-                    <TextInput
-                        id="username"
-                        type="text"
-                        name="username"
-                        value={data.username}
-                        className="mt-1 block w-full"
-                        autoComplete="username"
-                        onChange={(e) => setData('username', e.target.value)}
-                        required
-                    />
-
-                    <InputError message={errors.username} className="mt-2" />
+              </div>
+              <div className="absolute top-0 right-0 flex-col justify-center hidden w-6/12 h-full max-w-full px-3 pr-0 my-auto text-center flex-0 lg:flex">
+                <div className={`relative flex flex-col justify-center h-full bg-right px-24 bg-orange-500 m-4 overflow-hidden rounded-xl`} /* style={{ backgroundImage: `url(${logo})`}} */>
+                  <span className="absolute top-0 left-0 w-full h-full bg-center bg-cover bg-gradient-to-tl from-[#F02B12] to-[#FEC009] opacity-60 sm:bg-black"></span>
+                  <h2 className="mt-12 font-bold text-size-8xl text-white shadow-white">INNCLOUD</h2>
+                  <p className="z-20 text-white text-size-xl shadow-white">PRUEBA TÉCNICA</p>
                 </div>
-
-                <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Password" />
-
-                    <TextInput
-                        id="password"
-                        type="password"
-                        name="password"
-                        value={data.password}
-                        className="mt-1 block w-full"
-                        autoComplete="new-password"
-                        onChange={(e) => setData('password', e.target.value)}
-                        required
-                    />
-
-                    <InputError message={errors.password} className="mt-2" />
-                </div>
-                <div className="mt-4">
-                    <InputLabel htmlFor="password_confirmation" value="Confirm Password" />
-                    <TextInput
-                        id="password_confirmation"
-                        type="password"
-                        name="password_confirmation"
-                        value={data.password_confirmation}
-                        className="mt-1 block w-full"
-                        autoComplete="new-password"
-                        onChange={(e) => setData('password_confirmation', e.target.value)}
-                        required
-                    />
-
-                    <InputError message={errors.password_confirmation} className="mt-2" />
-                </div>
-                <div className="flex items-center justify-end mt-4">
-                    <Link
-                        href={route('login')}
-                        className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    >
-                        Already registered?
-                    </Link>
-
-                    <PrimaryButton className="ml-4" disabled={processing}>
-                        Register
-                    </PrimaryButton>
-                </div>
-            </form>
-        </GuestLayout>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    </>
     );
 }
+

@@ -19,18 +19,17 @@ const Navbar = ({onChangeAct}) => {
 
             <ol className="flex flex-wrap pt-1 mr-12 bg-transparent rounded-lg sm:mr-16">
               <li className="leading-normal text-size-sm">
-                <Link className="text-white opacity-50" href={route('dashboard')}>INNCLOUD</Link>
+                <Link className="text-white opacity-50" href={route('documents')}>INNCLOUD</Link>
               </li>
               <li className="text-size-sm pl-2 capitalize leading-normal text-white before:float-left before:pr-2 before:text-white before:content-['/']">DOCUMENTOS</li>
             </ol>
-            <h6 className="mb-0 font-bold text-white capitalize">{}</h6>
           </nav>
           <div className="flex items-center mt-2 grow sm:mt-0 sm:mr-6 md:mr-0 lg:flex lg:basis-auto">
             <div className="flex items-center md:ml-auto md:pr-4">
             </div>
             <ul className="flex flex-row justify-end pl-0 mb-0 list-none md-max:w-full">
               <li className="flex items-center px-4">
-                <Link href={route('logout')} method="post" type="button" className="p-0 text-white transition-all text-size-sm ease-nav-brand flex flex-row justify-center">
+                <Link href={route('logout')} method="post" as="button" className="p-0 text-white transition-all text-size-sm ease-nav-brand flex flex-row justify-center">
                 <FaSignOutAlt className="cursor-pointer text-white text-size-xl ml-3 fas fa-right-from-bracket hover:text-black dark:hover:text-white transition-all"></FaSignOutAlt>
                 <p className="ml-2">Cerrar sesión</p>
                 </Link>

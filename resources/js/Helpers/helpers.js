@@ -1,7 +1,8 @@
 
 // Setea la url para que mantenga los filtros de búsquedad en la paginación
-const setUrl = (url, currentFilters = null) => {
-    if(currentFilters){
+const setUrl = (url, currentFilters) => {
+
+    if(currentFilters.doc_nombre || currentFilters.tip_id  || currentFilters.pro_id){
         let initUrl = '?'
         const filters = Object.keys(currentFilters)
         filters.forEach((filter) => {
@@ -18,7 +19,6 @@ const setUrl = (url, currentFilters = null) => {
 
 //Llama a toast para mostrarlo en pantalla
 const showToast = (msg, toast) => toast.success(msg)
-
 export {
     setUrl,
     showToast

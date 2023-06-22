@@ -77,8 +77,12 @@ function documentTypeSeederData() : array
 }
 
 
-function getDocCode(string $docType, string $process, string $id){
-    return substr($docType, 0, 3).'-'.substr($docType, 0, 3).'-'.$id;
+function modifyIfAreDifferent(string $a, string $b) : bool
+{
+    if($a =! $b){
+        return true;
+    }
+    return false;
 }
 
 

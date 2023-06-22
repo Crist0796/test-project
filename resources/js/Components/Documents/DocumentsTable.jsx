@@ -1,27 +1,20 @@
 import React, {useEffect, useState} from "react"
 import Pagination from "@/Components/Pagination"
-import Filters from "@/Components/Filters"
-import DocumentModal from "@/Components/DocumentModal"
-import DocumentDeleteModal from "./DocumentDeleteModal"
+import Filters from "@/Components/Documents/Filters"
+import DocumentModal from "@/Components/Documents/DocumentModal"
+import DocumentDeleteModal from "@/Components/Documents/DocumentDeleteModal"
 import { Link, usePage } from '@inertiajs/react'
 import { FaEdit, FaEye, FaTrash } from "react-icons/fa"
 
 
 const DocumentsTable = () => {
 
-    const {documents, filters, currentFilters, flash} = usePage().props
+    const {documents, currentFilters} = usePage().props
 
     //Pasa información de cada documento al modal al modal
     const [data, setData] = useState({document : '', show: false})
     const [deleteData, setDeleteData] = useState({document : '', show: false})
     const {  } = usePage().props
-
-    console.log(currentFilters)
-
-    /* ${parseInt(currentFilters.paginate) > 5 ? 'h-240 pb-116' : 'h-180 pb-50'} */
-    const closeModalEditData = () => {
-        setEditedData(false)
-    }
 
     return (
         <>
@@ -93,8 +86,8 @@ const DocumentsTable = () => {
                 </div>
               </div>
             </div>}
-            <DocumentModal data={data} />
-            <DocumentDeleteModal  deleteData={deleteData}  />
+            <DocumentModal data={data}/>
+            <DocumentDeleteModal deleteData={deleteData}/>
         </>
     )
 }

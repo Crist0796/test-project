@@ -5,7 +5,8 @@ import { FaSave } from "react-icons/fa"
 const ShowForm = () => {
 
     const { document, documentTypes, process } = usePage().props
-    const { data, setData, errors, post} = useForm({
+    const { data, setData, errors, patch} = useForm({
+        doc_id : document.doc_id,
         doc_nombre : document.doc_nombre,
         doc_contenido : document.doc_contenido,
         doc_id_tipo : document.doc_id_tipo,
@@ -14,7 +15,7 @@ const ShowForm = () => {
 
     const submit = (e) => {
         e.preventDefault()
-        post(route('documents.store'), data)
+        patch(route('documents.update'), data)
     }
 
     const onChangeHandle = (e) => {

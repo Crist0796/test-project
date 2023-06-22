@@ -33,7 +33,9 @@ class HandleInertiaRequests extends Middleware
         return array_merge(parent::share($request), [
 
             'flash' => [
-                'document_created' => fn() => $request->session()->get('document_created')
+                'document_created' => fn() => $request->session()->get('document_created'),
+                'document_updated' => fn() => $request->session()->get('document_updated'),
+                'document_deleted' => fn() => $request->session()->get('document_deleted'),
             ],
             'auth' => [
                 'user' => $request->user(),

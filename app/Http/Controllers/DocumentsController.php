@@ -57,8 +57,11 @@ class DocumentsController extends Controller
             'doc_id_proceso' => $request->doc_id_proceso,
             'doc_id_tipo' => $request->doc_id_tipo,
         ]);
-        $document->doc_codigo = $documentType->tip_prefijo.'-'.$process->pro_prefijo.'-'.$document->doc_id;
+
+        $document->doc_codigo = $documentType->tip_prefijo.'-'.$process->pro_prefijo.'-'.
+                                $this->getLastCode($documentType->tip_prefijo.'-'.$process->pro_prefijo);
         $document->save();
+
         session()->flash('document_created', 'El documento se creó correctamente');
         return to_route('documents');
     }
@@ -84,16 +87,26 @@ class DocumentsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(DocRequest $request)
     {
-        //
+        $request->validate($request->rules(), $request->messages());
+        $document = Document::findOrFail($request->doc_id);
+        if($this->insertDataAndGetChangesOnDocument($request, $document)){
+            session()->flash('document_updated', 'El documento se modificó correctamente');
+        }
+        return to_route('documents.show', $document->doc_id);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $doc_id)
     {
-        //
+        $document = Document::findOrFail($doc_id);
+        $codeArray = explode('-', $document->doc_codigo);
+        $this->updateCodes($codeArray[0].'-'.$codeArray[1], intval($codeArray[2]));
+        Document::destroy($doc_id);
+        session()->flash('document_deleted', 'El documento se eliminó correctamente');
+        return to_route('documents');
     }
 }

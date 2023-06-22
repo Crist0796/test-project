@@ -1,12 +1,29 @@
+import { useForm, Link, router } from "@inertiajs/react";
 import React, {useState, useEffect} from "react";
+import { FaTrash } from "react-icons/fa";
 
-export default function DocumentModal({data}) {
+export default function DocumentDeleteModal({deleteData}) {
 
   const [showModal, setShowModal] = useState(false);
+  const { data, setData, post } = useForm({
+    doc_id : deleteData.id
+  })
 
   useEffect(() => {
-    setShowModal(data.show)
-  }, [data]);
+    setShowModal(deleteData.show)
+    if(deleteData.document.doc_id){
+        setData({
+            doc_id : deleteData.document.doc_id
+        })
+    }
+  }, [deleteData]);
+
+  const sendDeleteData = (e) => {
+    e.preventDefault()
+    console.log(data.doc_id);
+    post(route('documents.delete', data.doc_id))
+    setShowModal(false)
+  }
 
   return (
     <>
@@ -20,8 +37,8 @@ export default function DocumentModal({data}) {
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 {/*header*/}
                 <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-                  <h3 className="text-3xl font-semibold">
-                    {data.document.doc_nombre}
+                  <h3 className="text-3xl font-semibold text-orange-600">
+                    Eliminar Documento
                   </h3>
                   <button
                     className="p-1 ml-auto bg-transparent border-0 text-black float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
@@ -34,14 +51,7 @@ export default function DocumentModal({data}) {
                 </div>
                 {/*body*/}
                 <div className="p-6">
-
-                    <div className="flex flex-col items-center justify-center">
-                        <p className="text-center">
-                            {data.document.doc_contenido}
-                        </p>
-                    </div>
-
-
+                    <p className="text-center text-size-xl">¿Estás seguro que deseas eliminar este documento (ID : {deleteData.document.doc_id})?</p>
                 </div>
                 {/*footer*/}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
@@ -52,16 +62,16 @@ export default function DocumentModal({data}) {
                   >
                     Cerrar
                   </button>
-                  {/* <button
-                    className="bg-blue-900 text-white active:bg-blue-600 hover:bg-blue-800 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                  <button
+                    onClick={sendDeleteData}
+                    formMethod="post"
+                    className="bg-orange-600 text-white active:bg-orange-500 hover:bg-orange-500 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
-                    onClick={() => setShowModal(false)}
+
                   >
-
-                    <span> Guardar </span>
-
-                    <i className="fas fa-save text-4 mx-2"></i>
-                  </button> */}
+                    <span> Eliminar </span>
+                    <FaTrash className="fas fa-trash text-4 mx-2"/>
+                  </button>
                 </div>
               </div>
             </div>

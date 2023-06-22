@@ -1,8 +1,8 @@
 import DashboardLayout from '@/Layouts/DashboardLayout';
 import { Head, Link } from '@inertiajs/react';
 import { FaFileMedical } from 'react-icons/fa';
-import DocumentsTable from '@/Components/DocumentsTable';
-import Filters from '@/Components/Filters';
+import DocumentsTable from '@/Components/Documents/DocumentsTable';
+import Filters from '@/Components/Documents/Filters';
 import toast, { Toaster } from 'react-hot-toast';
 import { showToast } from '@/Helpers/helpers';
 import { useEffect } from 'react';
@@ -11,7 +11,13 @@ export default function Index({documents, flash}) {
 
 
     useEffect(() => {
-        flash.document_created && showToast(flash.document_created, toast)
+        if(flash.document_created){
+            showToast(flash.document_created, toast)
+        }else if(flash.document_deleted){
+            showToast(flash.document_deleted, toast)
+        }else{
+            toast.remove()
+        }
     }, [flash])
 
     return (

@@ -40,21 +40,17 @@ const ShowForm = () => {
                 </div>
                 <div className="flex gap-4 mb-4">
                 <div>
-                    <select name="doc_id_tipo" onChange={onChangeHandle} className="bg-gray-50 border border-gray-300 text-gray-900 text-4 rounded-lg focus:ring-orange-500 focus:border-orange-500 block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500 mx-1">
+                    <select name="doc_id_tipo" onChange={onChangeHandle} defaultValue={document.doc_id_tipo} className="bg-gray-50 border border-gray-300 text-gray-900 text-4 rounded-lg focus:ring-orange-500 focus:border-orange-500 block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500 mx-1">
                         {documentTypes.map((documentType, index) => {
-                            return  documentType.tip_id === document.doc_id_tipo ?
-                            <option key={index} value={documentType.tip_id} defaultValue>{documentType.tip_nombre}</option> :
-                            <option key={index} value={documentType.tip_id}>{documentType.tip_nombre}</option>
+                            return  <option key={index} value={documentType.tip_id}>{documentType.tip_nombre}</option>
                         })}
                     </select>
                     <p className='text-red-500'>{errors.doc_id_tipo}</p>
                 </div>
                 <div>
-                    <select name="doc_id_proceso" onChange={onChangeHandle} className="bg-gray-50 border border-gray-300 text-gray-900 text-4 rounded-lg focus:ring-orange-500 focus:border-orange-500 block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500 mx-1">
+                    <select name="doc_id_proceso" onChange={onChangeHandle} defaultValue={document.doc_id_proceso} className="bg-gray-50 border border-gray-300 text-gray-900 text-4 rounded-lg focus:ring-orange-500 focus:border-orange-500 block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500 mx-1">
                         {process.map((process, index) => {
-                            return  process.pro_id === document.doc_id_proceso ?
-                            <option key={index} value={process.pro_id} defaultValue>{process.pro_nombre}</option> :
-                            <option key={index} value={process.pro_id}>{process.pro_nombre}</option>
+                            return  <option key={index} value={process.pro_id} defaultValue>{process.pro_nombre}</option>
                         })}
                     </select>
                     <p className='text-red-500'>{errors.doc_id_proceso}</p>

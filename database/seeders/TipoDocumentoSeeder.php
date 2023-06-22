@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\DocumentType;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\TipoDocumento;
+
 
 class TipoDocumentoSeeder extends Seeder
 {
@@ -13,8 +14,8 @@ class TipoDocumentoSeeder extends Seeder
      */
     public function run(): void
     {
-        foreach(tipoDocumentoData() as $tipoDocumento){
-            $tipoDocumento = TipoDocumento::create($tipoDocumento);
+        foreach(documentTypeSeederData() as $tipoDocumento){
+            $tipoDocumento = DocumentType::create($tipoDocumento);
         }
     }
 }

@@ -24,7 +24,7 @@ function prdt($o){
 	die();
 }
 
-function procesoSeederData() : array
+function processSeederData() : array
 {
     return [
         [
@@ -50,7 +50,7 @@ function procesoSeederData() : array
         ];
 }
 
-function tipoDocumentoData() : array
+function documentTypeSeederData() : array
 {
     return [
         [

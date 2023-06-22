@@ -9,14 +9,14 @@ import { FaEdit, FaEye, FaTrash } from "react-icons/fa"
 
 const DocumentsTable = () => {
 
-    const {documents, filters, currentFilters = [], flash} = usePage().props
+    const {documents, filters, currentFilters, flash} = usePage().props
 
     //Pasa información de cada documento al modal al modal
     const [data, setData] = useState({document : '', show: false})
     const [deleteData, setDeleteData] = useState({document : '', show: false})
     const {  } = usePage().props
 
-    console.log(documents)
+    console.log(currentFilters)
 
     /* ${parseInt(currentFilters.paginate) > 5 ? 'h-240 pb-116' : 'h-180 pb-50'} */
     const closeModalEditData = () => {
@@ -27,7 +27,7 @@ const DocumentsTable = () => {
         <>
             <Filters/>
             {documents.data.length === 0 ? <h2 className="text-center text-red-500">No hay documentos que cumplan ese criterio de búsquedad</h2> :
-            <div className={`flex flex-wrap -mx-3 overflow-y-auto ${parseInt(currentFilters.paginate) > 5 ? 'h-240 pb-116' : 'h-180 pb-50'}  scrollbar-thumb-blue-900 scrollbar-track-white scrollbar-thin mt-3`}>
+            <div className={`flex flex-wrap -mx-3 overflow-y-auto ${parseInt(currentFilters.paginate) > 5 ? 'h-135 pb-200' : 'h-125'}  scrollbar-thumb-orange-500 scrollbar-track-white scrollbar-thin mb-3`}>
               <div className="flex-none w-full max-w-full px-3">
                 <div className="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-3xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
                   <div className="p-2 pb-0 mb-0 border-b-0 border-b-solid rounded-t-2xl border-b-transparent">

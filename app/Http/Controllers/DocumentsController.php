@@ -2,31 +2,40 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+
+use App\Http\Controllers\Traits\DocumentsTrait;
 use App\Models\Document;
-use Inertia\Inertia;
 use App\Models\DocumentType;
 use App\Models\Process;
+use Inertia\Inertia;
+use Inertia\Response;
+use Illuminate\Http\Request;
 use App\Http\Requests\DocRequest;
+
 
 class DocumentsController extends Controller
 {
+
+    use DocumentsTrait;
+
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(?Request $request) : Response
     {
+        $documents = $this->getDocumentWithFilters($request);
+        $currentFilters = $this->getCurrentFilers($request);
         $documentTypes = DocumentType::all();
         $process = Process::all();
-        $documents = Document::with(['process', 'documentType'])->paginate(1);
-        return Inertia::render('Documents/Index', ['documents' => $documents,
+        return Inertia::render('Documents/Index', ['documents' => $documents->paginate($currentFilters['paginate'] ?? 5),
                                                    'documentTypes' => $documentTypes,
-                                                   'process' => $process]);
+                                                   'process' => $process,
+                                                   'currentFilters' => $currentFilters]);
     }
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create() : Response
     {
         $documentTypes = DocumentType::all();
         $process = Process::all();
@@ -39,7 +48,7 @@ class DocumentsController extends Controller
      */
     public function store(DocRequest $request)
     {
-        $validate = $request->validate($request->rules(), $request->messages());
+        $request->validate($request->rules(), $request->messages());
         $documentType = DocumentType::findOrFail($request->doc_id_tipo);
         $process = Process::findOrFail($request->doc_id_proceso);
         $document = Document::create([
@@ -48,15 +57,15 @@ class DocumentsController extends Controller
             'doc_id_proceso' => $request->doc_id_proceso,
             'doc_id_tipo' => $request->doc_id_tipo,
         ]);
-
         $document->doc_codigo = $documentType->tip_prefijo.'-'.$process->pro_prefijo.'-'.$document->doc_id;
         $document->save();
-        return to_route('documents.show', $document->doc_id);
+        session()->flash('document_created', 'El documento se creó correctamente');
+        return to_route('documents');
     }
     /**
      * Display the specified resource.
      */
-    public function show(string $doc_id)
+    public function show(string $doc_id) : Response
     {
         $documentTypes = DocumentType::all();
         $process = Process::all();

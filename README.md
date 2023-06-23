@@ -1,66 +1,65 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+PRUEBA TÉCNICA PARA INNCLOUD
+Solución a prueba técnica para Inncloud, realicé una SPA haciendo uso de la arquitectura por capas y MVC que provee Laravel para el Back End. 
+Para el Front utilicé React haciendo uso del Rooter y el gestor de estado que provee InertiaJS.
+Utilicé el siguiente stack:
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+PHP 8.1.
+Laravel 10.
+MYSQL.
+Breeze.
+Inertiajs con React.
+TailwindCSS.
+Instrucciones de despliegue en entorno local:
+Tener en cuenta que se debe tener instalado:
 
-## About Laravel
+Servidor web Apache
+PHP 8.1 o posterior y Composer 2.3 o posterior
+MySQL 5.7 o posterior
+NodeJS y NPM
+En Windows Recomiendo instalar un paquete que ya viene con estos servicios configurados: Xampp o Laragon.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Paso 1:
+Instalar todas las dependecias de Composer:
+Abra una terminal, navegue hasta donde se encuentre el proyecto y ejecute:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+composer install
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Paso 2:
+Cree un archivo .env en el directorio raíz del proyecto y pegue en él, el contenido del archivo .env.example.
+Modifique (en el archivo .env) los datos de la base de datos (DB_HOST, DB_PORT, DB_DATABASE, DB_USERNAME, DB_PASSWORD) de acuerdo a la configuración de su entorno.
+Luego de que las depencias se hayan instalado y haya configurado el archivo .env ejecute:
 
-## Learning Laravel
+php artisan key:generate
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Paso 3:
+Correr las migraciones y seeders.
+Una vez haya instalado todas las depencias de Composer y haya configurado la información de la base de datos en el archivo .env.
+Ejecute:
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+php artisan migrate
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Si la base de datos que especificó en el archivo .env no existe, recibirá un mensaje diciendo que si desea crearla.
+Teclee yes y presione enter.
 
-## Laravel Sponsors
+Una vez las tablas se hayan creado, ejecute:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+php artisan db:seed --class=ProcessSeeder && php artisan db:seed --class=DocumentTypeSeeder
 
-### Premium Partners
+Eso generará los registros de los tipos de documentos y procesos. Opcionalmente ejecute el siguiente comando para habilitar los mensajes de error y validación en español:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+php artisan vendor:publish --provider="LaravelLatam\Spanish\SpanishServiceProvider" --tag="spanish"
 
-## Contributing
+Paso 4:
+Instale las dependecias del Front End.
+Ejecute:
+npm install
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Paso 5:
+Correr servidor en entorno local.
+En una terminal navegue a la raíz del proyecto y ejecute el siguiente comando (no cierre la terminal) :
+php artisan serve
+En otra terminal navegue a la raíz del proyecto y ejecute (no cierre la terminal):
+npm run dev
 
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Eso correra el proyecto en el localhost (por defecto en el puerto 8000).
+Abra el navegador y visite la url: http://localhost:8000/register para registrar un usuario y empezar a utilizar la App.

@@ -6,8 +6,8 @@ import CreateForm from "@/Components/Documents/CreateForm"
 const Create = () => {
     return(
         <>
-        <Head title='Documents Create'/>
-        <DashboardLayout>
+        <Head title='Crear Documento'/>
+        <DashboardLayout module="Nuevo Documento">
             <h1 className='text-center text-white mt-5 mb-3 text-8'>Añadir Documento</h1>
             <CreateForm/>
         </DashboardLayout>

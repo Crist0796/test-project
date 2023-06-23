@@ -1,11 +1,16 @@
 import React from "react"
 import { Link } from "@inertiajs/react"
 import logo from '/resources/img/logo.png'
-import { FaFileAlt, FaFileMedical } from "react-icons/fa"
-const Sidenav = ({active, onChangeAct}) => {
+import { FaCopy, FaFileAlt, FaFileMedical } from "react-icons/fa"
+const Sidenav = ({active, onChangeAct, module}) => {
     const onHandleClick = () => {
         onChangeAct()
     }
+
+    const getActiveModule = (str) => {
+        return str == module ? 'bg-orange-500' : ''
+    }
+
     let cN
     active === 1 ? cN = 'fixed inset-y-0 flex-wrap items-center justify-between block w-full p-0 my-4 overflow-y-auto antialiased transition-transform duration-200 -translate-x-full bg-white border-0 shadow-3xl dark:shadow-none dark:bg-slate-850 max-w-50 ease-nav-brand z-990 xl:ml-6 rounded-2xl xl:left-0 xl:translate-x-0'
            : cN = 'fixed inset-y-0 flex-wrap items-center justify-between block w-full p-0 my-4 overflow-y-auto antialiased transition-transform duration-200 -translate-x-full bg-white border-0 shadow-3xl dark:shadow-none dark:bg-slate-850 max-w-50 ease-nav-brand z-990 xl:ml-6 rounded-2xl xl:left-0 xl:translate-x-0 ml-6 translate-x-0'
@@ -22,18 +27,26 @@ const Sidenav = ({active, onChangeAct}) => {
       <hr className="h-px mt-4 bg-transparent bg-gradient-to-r from-transparent via-black/40 to-transparent dark:bg-gradient-to-r dark:from-transparent dark:via-white dark:to-transparent" />
       <div className="items-center mt-10 block w-auto max-h-screen overflow-auto h-sidenav grow basis-full">
         <ul className="flex flex-col pl-0 mb-0">
-          <li className="mt-0.5 w-full mb-3">
-            <Link className="py-2.7 mt-3 bg-orange-600/10 dark:text-white dark:opacity-80 text-size-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href={route('documents')}>
+          <li className="mt-0.5 w-full">
+            <Link className={`py-2.7 ${getActiveModule('Documentos')} hover:bg-orange-500 dark:text-white dark:opacity-80 text-size-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors`} href={route('documents')}>
                 <FaFileAlt/>
-              <span className="ml-3 duration-300 opacity-100 pointer-events-none ease">DOCUMENTOS</span>
+              <span className="ml-3 duration-300 opacity-100 pointer-events-none ease">Documentos</span>
             </Link>
           </li>
-          <li className="mt-0.5 w-full mb-3">
-            <Link className="py-2.7 mt-3 bg-orange-600/10 dark:text-white dark:opacity-80 text-size-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href={route('documents.create')}>
+          <li className="mt-0.5 w-full">
+            <Link className={`py-2.7 ${getActiveModule('Tipos de documento')} hover:bg-orange-500 dark:text-white dark:opacity-80 text-size-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors`} href={route('document-types')}>
+                <FaCopy/>
+              <span className="ml-3 duration-300 opacity-100 pointer-events-none ease">Tipos de documento</span>
+            </Link>
+          </li>
+          <li className="mt-0.5 w-full">
+            <Link className={`py-2.7 ${getActiveModule('Nuevo Documento')} hover:bg-orange-500 dark:text-white dark:opacity-80 text-size-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors`} href={route('documents.create')}>
                 <FaFileMedical/>
-              <span className="ml-3 duration-300 opacity-100 pointer-events-none ease">NUEVO DOCUMENTO</span>
+              <span className="ml-3 duration-300 opacity-100 pointer-events-none ease">Nuevo Documento</span>
             </Link>
           </li>
+
+
         </ul>
       </div>
     </aside>

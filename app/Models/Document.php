@@ -46,4 +46,8 @@ class Document extends Model
         });
     }
 
+    public function scopeFilterByDocumentTypePrefix(Builder $query, $prefix){
+        $query->where('doc_codigo', 'like', $prefix.'-%');
+    }
+
 }

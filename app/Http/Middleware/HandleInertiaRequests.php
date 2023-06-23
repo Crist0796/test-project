@@ -36,6 +36,7 @@ class HandleInertiaRequests extends Middleware
                 'document_created' => fn() => $request->session()->get('document_created'),
                 'document_updated' => fn() => $request->session()->get('document_updated'),
                 'document_deleted' => fn() => $request->session()->get('document_deleted'),
+                'document_type_updated' => fn() => $request->session()->get('document_type_updated'),
             ],
             'auth' => [
                 'user' => $request->user(),

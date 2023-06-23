@@ -8,7 +8,6 @@ import { showToast } from "@/Helpers/helpers";
 const Show = () => {
 
     const { flash } = usePage().props
-
     useEffect(() => {
         if(flash.document_updated){
             showToast(flash.document_updated, toast)
@@ -19,8 +18,8 @@ const Show = () => {
 
     return(
         <>
-        <Head title='Documents Show'/>
-        <DashboardLayout>
+        <Head title='Ver y Editar Documento'/>
+        <DashboardLayout module="Documentos">
             <h1 className='text-center text-white mt-5 mb-3 text-8'>Ver / Modificar Documento</h1>
             <Toaster/>
             <ShowForm/>

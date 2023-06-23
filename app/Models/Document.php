@@ -50,4 +50,8 @@ class Document extends Model
         $query->where('doc_codigo', 'like', $prefix.'-%');
     }
 
+    public function scopeFilterByProcessPrefix(Builder $query, $prefix){
+        $query->where('doc_codigo', 'like', '%-'.$prefix.'-%');
+    }
+
 }

@@ -1,7 +1,7 @@
 import React from "react"
 import { Link } from "@inertiajs/react"
 import logo from '/resources/img/logo.png'
-import { FaCopy, FaFileAlt, FaFileMedical } from "react-icons/fa"
+import { FaCopy, FaFileAlt, FaFileMedical, FaUserTie } from "react-icons/fa"
 const Sidenav = ({active, onChangeAct, module}) => {
     const onHandleClick = () => {
         onChangeAct()
@@ -37,6 +37,12 @@ const Sidenav = ({active, onChangeAct, module}) => {
             <Link className={`py-2.7 ${getActiveModule('Tipos de documento')} hover:bg-orange-500 dark:text-white dark:opacity-80 text-size-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors`} href={route('document-types')}>
                 <FaCopy/>
               <span className="ml-3 duration-300 opacity-100 pointer-events-none ease">Tipos de documento</span>
+            </Link>
+          </li>
+          <li className="mt-0.5 w-full">
+            <Link className={`py-2.7 ${getActiveModule('Procesos')} hover:bg-orange-500 dark:text-white dark:opacity-80 text-size-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors`} href={route('process')}>
+                <FaUserTie/>
+              <span className="ml-3 duration-300 opacity-100 pointer-events-none ease">Procesos</span>
             </Link>
           </li>
           <li className="mt-0.5 w-full">

@@ -2,15 +2,11 @@ import React from "react";
 import { Link, useForm } from "@inertiajs/react";
 import { FaSignOutAlt } from "react-icons/fa"
 /* import { Inertia } from "@inertiajs/react"; */
-const Navbar = ({onChangeAct}) => {
+const Navbar = ({module}) => {
 
 
 
-    var root_html = document.querySelector('html')
 
-    const onChangeHandle = (e) => {
-        e.target.checked ? root_html.classList.add("dark") : root_html.classList.remove("dark")
-    }
     return (
         <div className="fixed z-10 bg-transparent w-full ml-6">
         <nav className=" bg-transparent flex flex-wrap items-center justify-between px-0 py-2 ml-6 transition-all ease-in shadow-none duration-250 lg:flex-nowrap lg:justify-start w-3/4 ">
@@ -21,7 +17,7 @@ const Navbar = ({onChangeAct}) => {
               <li className="leading-normal text-size-sm">
                 <Link className="text-white opacity-50" href={route('documents')}>INNCLOUD</Link>
               </li>
-              <li className="text-size-sm pl-2 capitalize leading-normal text-white before:float-left before:pr-2 before:text-white before:content-['/']">DOCUMENTOS</li>
+              <li className="text-size-sm pl-2 capitalize leading-normal text-white before:float-left before:pr-2 before:text-white before:content-['/']">{module}</li>
             </ol>
           </nav>
           <div className="flex items-center mt-2 grow sm:mt-0 sm:mr-6 md:mr-0 lg:flex lg:basis-auto">

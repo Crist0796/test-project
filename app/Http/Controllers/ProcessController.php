@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Traits\DocumentsTrait;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Inertia\Response;
-use App\Models\DocumentType;
-use App\Models\Document;
+use App\Models\Process;
 use App\Models\Code;
-class DocumentTypesController extends Controller
+use App\Models\Document;
+use Illuminate\Support\Facades\DB;
+class ProcessController extends Controller
 {
 
     use DocumentsTrait;
@@ -20,8 +20,8 @@ class DocumentTypesController extends Controller
      */
     public function index() : Response
     {
-        $documentsTypes = DocumentType::paginate(5);
-        return Inertia::render('DocumentTypes/Index', ['documentTypes' => $documentsTypes]);
+        $process = Process::paginate(5);
+        return Inertia::render('Process/Index', ['process' => $process]);
     }
 
     /**
@@ -63,7 +63,7 @@ class DocumentTypesController extends Controller
     {
 
         $rules = [
-            'tip_id' => 'required',
+            'pro_id' => 'required',
         ];
 
         $messages = [];
@@ -74,48 +74,50 @@ class DocumentTypesController extends Controller
         3-) Envían el nombre y no el prefijo.
         4-9 No envían nada.
         */
-        if($request->tip_prefijo && !$request->tip_nombre){
-            $rules['tip_prefijo'] = 'max:5';
-            $messages['tip_prefijo.max'] = 'El prefijo no debe tener más de 5 caracteres';
-        }elseif($request->tip_prefijo && $request->tip_nombre){
-            $rules['tip_prefijo'] = 'max:5';
-            $messages['tip_prefijo.max'] = 'El prefijo no debe tener más de 5 caracteres';
-            $rules['tip_nombre'] = 'unique:tip_tipo_doc|min:3';
-            $messages['tip_nombre.unique'] = 'Ya existe un tipo de documento con ese nombre';
-            $messages['tip_nombre.min'] = 'El nombre debería debe tener mínimo 3 caracteres';
+        if($request->pro_prefijo && !$request->pro_nombre){
+            $rules['pro_id'] = 'max:5';
+            $messages['pro_prefijo.max'] = 'El prefijo no debe tener más de 5 caracteres';
+        }elseif($request->pro_prefijo && $request->pro_nombre){
+            $rules['pro_prefijo'] = 'max:5';
+            $messages['pro_prefijo.max'] = 'El prefijo no debe tener más de 5 caracteres';
+            $rules['pro_nombre'] = 'unique:pro_proceso|min:3';
+            $messages['pro_nombre.unique'] = 'Ya existe un nombre de proceso con ese nombre';
+            $messages['pro_nombre.min'] = 'El nombre debería debe tener mínimo 3 caracteres';
 
-        }elseif(!$request->tip_prefijo && $request->tip_nombre){
-            $rules['tip_nombre'] = 'unique:tip_tipo_doc|min:3';
-            $messages['tip_nombre.unique'] = 'Ya existe un tipo de documento con ese nombre';
-            $messages['tip_nombre.min'] = 'El nombre debería debe tener mínimo 3 caracteres';
+        }elseif(!$request->pro_prefijo && $request->pro_nombre){
+            $rules['pro_nombre'] = 'unique:pro_proceso|min:3';
+            $messages['pro_nombre.unique'] = 'Ya existe un nombre de proceso con ese nombre';
+            $messages['pro_nombre.min'] = 'El nombre debería debe tener mínimo 3 caracteres';
         }else{
-            return redirect()->route('document-types')
+            return redirect()->route('process')
             ->withErrors(['prefijo' => 'Escriba un nombre o un prefijo']);
         }
 
 
         $request->validate($rules, $messages);
 
-        //Busco los documentos que tienen ese prefijo y si hay los actualizo.
+
         try{
             DB::beginTransaction();
-            $documentType = DocumentType::findOrFail($request->tip_id);
-            $documents = Document::filterByDocumentTypePrefix($documentType->tip_prefijo)->get();
-            $codes = Code::filterByDocumentTypePrefix($documentType->tip_prefijo)->get();
+            $process = Process::findOrFail($request->pro_id);
 
-            $documentType->tip_prefijo = $request->tip_prefijo ? str($request->tip_prefijo)->upper() : substr(str($request->tip_nombre)->upper(), 0, 3);
-            if($request->tip_nombre){
-                $documentType->tip_nombre = $request->tip_nombre;
+             //Busco los documentos y códigos que tienen ese prefijo para actualizarlos.
+            $documents = Document::filterByProcessPrefix($process->pro_prefijo)->get();
+            $codes = Code::filterByProcessPrefix($process->pro_prefijo)->get();
+
+            $process->pro_prefijo = $request->pro_prefijo ? str($request->pro_prefijo)->upper() : substr(str($request->pro_nombre)->upper(), 0, 3);
+            if($request->pro_nombre){
+                $process->pro_nombre = $request->pro_nombre;
             }
 
             //-- Si el prefijo ya existe retorno con error -- //
-            $foundDocumentType = DocumentType::where('tip_prefijo', $documentType->tip_prefijo)->first();
-            if($foundDocumentType && $foundDocumentType->tip_id != $request->tip_id){
-               return redirect()->route('document-types')
+            $foundProcess = Process::where('pro_prefijo', $process->pro_prefijo)->first();
+            if($foundProcess && $foundProcess->pro_id != $request->pro_id){
+
+               return redirect()->route('process')
                ->withErrors(['prefijo' => 'El prefijo ya existe.']);
             }
-
-            $documentType->save();
+            $process->save();
 
             /*Si existen documentos que en el código tengan el prefijo viejo
               los recorro y los actualizo con el nuevo
@@ -123,7 +125,7 @@ class DocumentTypesController extends Controller
             if($documents){
                 foreach($documents as $document){
                     $codeArray = explode('-', $document->doc_codigo);
-                    $newCode = $documentType->tip_prefijo.'-'.$codeArray[1].'-'.$codeArray[2];
+                    $newCode = $codeArray[0].'-'.$process->pro_prefijo.'-'.$codeArray[2];
                     $document->doc_codigo = $newCode;
                     $document->save();
                 }
@@ -135,15 +137,15 @@ class DocumentTypesController extends Controller
             if($codes){
                 foreach($codes as $code){
                     $codeArray = explode('-', $code->codigo);
-                    $newCode = $documentType->tip_prefijo.'-'.$codeArray[1];
+                    $newCode = $codeArray[0].'-'.$process->pro_prefijo;
                     $code->codigo = $newCode;
                     $code->save();
                 }
             }
 
             DB::commit();
-            session()->flash('document_type_updated', 'El tipo de documento se actualizó correctamente');
-            return to_route('document-types');
+            session()->flash('process_updated', 'El Proceso se actualizó correctamente');
+            return to_route('process');
         }catch(\Exception $e){
             DB::rollBack();
         }

@@ -4,13 +4,13 @@ import { FaFileMedical } from 'react-icons/fa';
 import toast, { Toaster } from 'react-hot-toast';
 import { showToast } from '@/Helpers/helpers';
 import { useEffect } from 'react';
-import DocumentTypesTable from '@/Components/DocumentTypes/DocumentTypeTable';
+import ProcessTable from '@/Components/Process/ProcessTable';
 
-export default function Index({documentTypes, flash}) {
+export default function Index({process, flash}) {
 
     useEffect(() => {
-        if(flash.document_type_updated){
-            showToast(flash.document_type_updated, toast)
+        if(flash.process_updated){
+            showToast(flash.process_updated, toast)
         }else{
             toast.remove()
         }
@@ -19,16 +19,16 @@ export default function Index({documentTypes, flash}) {
     return (
         <>
         <Head title='Tipos de documentos'/>
-            <DashboardLayout module="Tipos de documento">
+            <DashboardLayout module="Procesos">
                 <Toaster/>
-                <h1 className='text-center text-white mt-5 mb-3 text-8'>Gestión de tipos de documento</h1>
+                <h1 className='text-center text-white mt-5 mb-3 text-8'>Gestión de procesos</h1>
                 {
-                    documentTypes.data.length ?
-                    <DocumentTypesTable/>
+                    process.data.length ?
+                    <ProcessTable/>
                     :
                     <>
                     <div className='flex justify-center p-2 mt-4 items-center'>
-                        <h3 className='text-center pt-2'> NO HAY TIPOS DOCUMENTOS </h3>
+                        <h3 className='text-center pt-2'> NO HAY PROCESOS </h3>
                         <Link className=' p-2 ml-4 rounded-full border-2 text-orange-600 hover:bg-orange-600 hover:text-white transition-all'>
                             <FaFileMedical className='text-6'/>
                         </Link>

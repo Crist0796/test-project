@@ -2,14 +2,14 @@ import { useForm, usePage } from "@inertiajs/react";
 import React, {useState, useEffect} from "react";
 import { FaSave, FaTimes } from "react-icons/fa";
 
-export default function DocumentTypeModal({docData}) {
+export default function ProcessModal({proData}) {
 
   const [showModal, setShowModal] = useState(false);
 
   const {data, setData, errors,  post} = useForm({
-    tip_id : '',
-    tip_nombre : '',
-    tip_prefijo : ''
+    pro_id : '',
+    pro_nombre : '',
+    pro_prefijo : ''
    })
 
    const onChangeHandle = (e) => {
@@ -18,13 +18,15 @@ export default function DocumentTypeModal({docData}) {
 
    const sendData = (e) => {
     e.preventDefault()
-    post(route('document-types.update', data))
+    post(route('process.update', data))
+    setData('pro_nombre', '')
+    setData('pro_prefijo', '')
    }
 
   useEffect(() => {
-    setData('tip_id', docData.documentType.tip_id)
-    setShowModal(docData.show)
-  }, [docData]);
+    setData('pro_id', proData.process.pro_id)
+    setShowModal(proData.show)
+  }, [proData]);
 
   return (
     <>
@@ -39,7 +41,7 @@ export default function DocumentTypeModal({docData}) {
                 {/*header*/}
                 <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
                   <h3 className="text-3xl font-semibold text-orange-600">
-                    {docData.documentType.tip_nombre}
+                    {proData.process.pro_nombre}
                   </h3>
                   <button
                     className="p-1 ml-auto bg-transparent border-0 text-black float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
@@ -54,17 +56,17 @@ export default function DocumentTypeModal({docData}) {
                 <div className="p-6">
                     <form>
                         <div className="m-3">
-                            <input name="tip_nombre" placeholder="Nombre Tipo Documento" onChange={onChangeHandle} value={docData.doc_nombre} className="bg-gray-50 border border-gray-300 text-gray-900 text-size-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mx-1"/>
-                            {errors.tip_nombre &&  <p className="text-red-500">{errors.tip_nombre}</p> }
+                            <input name="pro_nombre" placeholder="Nombre Tipo Documento" onChange={onChangeHandle} value={proData.doc_nombre} className="bg-gray-50 border border-gray-300 text-gray-900 text-size-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mx-1"/>
+                            {errors.pro_nombre &&  <p className="text-red-500">{errors.pro_nombre}</p> }
                         </div>
                         <div className="m-3">
-                            <input name="tip_prefijo" placeholder="Prefijo opcional" onChange={onChangeHandle} value={docData.doc_nombre} className="bg-gray-50 border border-gray-300 text-gray-900 text-size-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mx-1"/>
-                            {errors.tip_prefijo &&  <p className="text-red-500">{errors.tip_prefijo}</p> }
+                            <input name="pro_prefijo" placeholder="Prefijo opcional" onChange={onChangeHandle} value={proData.doc_nombre} className="bg-gray-50 border border-gray-300 text-gray-900 text-size-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mx-1"/>
+                            {errors.pro_prefijo &&  <p className="text-red-500">{errors.pro_prefijo}</p> }
                         </div>
                         {errors.prefijo &&  <p className="text-red-700 m-2">{errors.prefijo}</p> }
                     </form>
                     <p className="mt-4"> <strong>NOTA:</strong> Si no escribe nada en el prefijo, se tomara de las primeras tres letras del nombre.</p>
-                    <p className="mt-4"> <strong>NOTA:</strong> Al actualizar el tipo de documento se modificara de todos los Documentos.</p>
+                    <p className="mt-4"> <strong>NOTA:</strong> Al actualizar el proo de documento se modificara de todos los Documentos.</p>
                 </div>
                 {/*footer*/}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">

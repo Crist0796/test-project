@@ -20,4 +20,8 @@ class Code extends Model
     public function scopeFilterByDocumentTypePrefix(Builder $query, $prefix){
         $query->where('codigo', 'like', $prefix.'-%');
     }
+
+    public function scopeFilterByProcessPrefix(Builder $query, $prefix){
+        $query->where('codigo', 'like', '%-'.$prefix);
+    }
 }

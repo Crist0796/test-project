@@ -1,11 +1,7 @@
 import React from "react";
 import { Link, useForm } from "@inertiajs/react";
 import { FaSignOutAlt } from "react-icons/fa"
-/* import { Inertia } from "@inertiajs/react"; */
 const Navbar = ({module}) => {
-
-
-
 
     return (
         <div className="fixed z-10 bg-transparent w-full ml-6">

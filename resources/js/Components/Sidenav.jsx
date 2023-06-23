@@ -51,8 +51,6 @@ const Sidenav = ({active, onChangeAct, module}) => {
               <span className="ml-3 duration-300 opacity-100 pointer-events-none ease">Nuevo Documento</span>
             </Link>
           </li>
-
-
         </ul>
       </div>
     </aside>

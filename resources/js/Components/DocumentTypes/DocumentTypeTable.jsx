@@ -1,10 +1,7 @@
 import React, {useEffect, useState} from "react"
-import Pagination from "@/Components/Pagination"
-import Filters from "@/Components/Documents/Filters"
 import DocumentModal from "./DocumentTypeModal"
-import { Link, usePage } from '@inertiajs/react'
-import { FaEdit, FaEye, FaTrash } from "react-icons/fa"
-
+import { usePage } from '@inertiajs/react'
+import { FaEdit} from "react-icons/fa"
 
 const DocumentTypeTable = () => {
 

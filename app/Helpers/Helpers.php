@@ -77,13 +77,6 @@ function documentTypeSeederData() : array
 }
 
 
-function modifyIfAreDifferent(string $a, string $b) : bool
-{
-    if($a =! $b){
-        return true;
-    }
-    return false;
-}
 
 
 ?>

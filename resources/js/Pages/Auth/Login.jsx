@@ -72,7 +72,7 @@ export default function Login() {
               <div className="absolute top-0 right-0 flex-col justify-center hidden w-6/12 h-full max-w-full px-3 pr-0 my-auto text-center flex-0 lg:flex">
                 <div className={`relative flex flex-col justify-center h-full bg-right px-24 bg-orange-500 m-4 overflow-hidden rounded-xl`} /* style={{ backgroundImage: `url(${logo})`}} */>
                   <span className="absolute top-0 left-0 w-full h-full bg-center bg-cover bg-gradient-to-tl from-[#F02B12] to-[#FEC009] opacity-60 sm:bg-black"></span>
-                  <h2 className="mt-12 font-bold text-size-8xl text-white shadow-white">INNCLOUD</h2>
+                  <h2 className="mt-12 font-bold text-size-8xl text-white shadow-white">TEST PROJECT</h2>
                   <p className="z-20 text-white text-size-xl shadow-white">PRUEBA TÉCNICA</p>
                 </div>
               </div>

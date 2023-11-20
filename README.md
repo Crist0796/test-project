@@ -1,9 +1,15 @@
-# PRUEBA TÉCNICA FULL STACK
+# PRUEBA TÉCNICA DESARROLLADOR BACK-END PHP
 
-    Solución a prueba técnica, 
-    (En requerimientos/requerimientos.pdf se encuentran especificados todos los requerimientos técnicos)
-    realicé una SPA haciendo uso de la arquitectura por capas y MVC que provee Laravel para el Back End. 
-    Para el Front utilicé React haciendo uso del Rooter y el gestor de estado que provee InertiaJS.
+    Solución a prueba técnica para vacante de desarrollador Back End PHP.
+
+    En la carpeta requerimientos se encuentra el documento
+    donde se especifican cada uno de los requerimientos técnicos.
+
+    En la carpeta documentación se encuentra el documento
+    donde explico cómo resolví cada uno de los requerimientos.
+
+    DESCRIPCIÓN GENERAL: realicé una SPA haciendo uso de la arquitectura por capas y MVC que provee Laravel.
+    También utilicé React haciendo uso del Rooter y el gestor de estado que provee InertiaJS.
 
 
 Utilicé el siguiente stack:
@@ -22,7 +28,7 @@ Tener en cuenta que se debe tener instalado:
 - **Servidor web (recomendado Apache o Nginx)**
 - **PHP 8.1 o posterior y Composer 2.3 o posterior**
 - **MySQL 5.7 o posterior**
-- **NodeJS y NPM**
+- **NodeJS 16 o posterior y NPM (U otro gestor de paquetes)**
 
 En Windows Recomiendo instalar un paquete que ya viene con estos servicios configurados:  **Xampp** o **Laragon**.
 

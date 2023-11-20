@@ -1,7 +1,10 @@
-# PRUEBA TÉCNICA PARA INNCLOUD
+# PRUEBA TÉCNICA FULL STACK
 
-    Solución a prueba técnica para Inncloud, realicé una SPA haciendo uso de la arquitectura por capas y MVC que provee Laravel para el Back End. 
+    Solución a prueba técnica, 
+    (En requerimientos/requerimientos.pdf se encuentran especificados todos los requerimientos técnicos)
+    realicé una SPA haciendo uso de la arquitectura por capas y MVC que provee Laravel para el Back End. 
     Para el Front utilicé React haciendo uso del Rooter y el gestor de estado que provee InertiaJS.
+
 
 Utilicé el siguiente stack:
 
@@ -12,11 +15,11 @@ Utilicé el siguiente stack:
  - Inertiajs con React.
  - TailwindCSS.
 
-# Instrucciones de despliegue en entorno local:
+# Instrucciones de configuración en entorno local:
 
 Tener en cuenta que se debe tener instalado:
 
-- **Servidor web Apache**
+- **Servidor web (recomendado Apache o Nginx)**
 - **PHP 8.1 o posterior y Composer 2.3 o posterior**
 - **MySQL 5.7 o posterior**
 - **NodeJS y NPM**
@@ -57,7 +60,7 @@ Abra una terminal, navegue hasta donde se encuentre el proyecto y ejecute:<br>
 
  ## Paso 4:
 
- Instale las dependecias del Front End. <br>
+ Instale las dependecias para el Front End. <br>
  Ejecute: <br>
  `npm install`
 

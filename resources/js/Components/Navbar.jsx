@@ -11,7 +11,7 @@ const Navbar = ({module}) => {
 
             <ol className="flex flex-wrap pt-1 mr-12 bg-transparent rounded-lg sm:mr-16">
               <li className="leading-normal text-size-sm">
-                <Link className="text-white opacity-50" href={route('documents')}>INNCLOUD</Link>
+                <Link className="text-white opacity-50" href={route('documents')}>TEST PROJECT</Link>
               </li>
               <li className="text-size-sm pl-2 capitalize leading-normal text-white before:float-left before:pr-2 before:text-white before:content-['/']">{module}</li>
             </ol>
